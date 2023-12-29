@@ -1,0 +1,15 @@
+/* #contAgg{
+    width: 80%;
+    margin: auto;
+    padding: 20px 60px;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+} */
+#contAgg > div{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 3px;
+}
+#contAgg > div span{
+    margin-right: 10px;
+    display: inline-block;
+}

@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* CSS Document */
+#header {
+   display: -webkit-flex;
+   display:flex;
+   flex-flow: row;
+   /*background:url(../img/fondo-header.png);*/
+}
+
+#header nav {
+	flex: 100%;
+	order: 1;
+	padding-left:10px;
+	padding-top:5px;
+	min-height: 10%;
+}
+
+#header aside {
+	flex: 1 6 20%;
+	order: 3;
+	padding-left:20px;
+	/*padding-top:2px;
+	padding-bottom:2px;**/
+}
