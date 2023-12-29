@@ -6,7 +6,6 @@
     <div id="transparencia" style="display:none"></div>
 
     {{-- Form --}}
-    {{-- <form action="{{route('requirements.store')}}" method="POST"> --}}
     <form id="FormCreateRequirement" method="POST" >
 
         @csrf

@@ -5,6 +5,7 @@ use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RegUserController;
 use App\Http\Controllers\RequirementController;
 use Illuminate\Support\Facades\Route;
@@ -42,3 +43,5 @@ Route::resource('requirements', RequirementController::class)->middleware('auth'
 Route::get('requirements/historic/{user}', [RequirementController::class, 'RequirementByManagement'])->middleware('auth');
 
 Route::resource('providers', ProviderController::class)->middleware('auth');
+
+Route::resource('purchases', PurchaseController::class)->middleware('auth');

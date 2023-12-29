@@ -8,4 +8,5 @@
 <script type="text/javascript" src="{{asset('/assets/js/datatables/datatables.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('/assets/js/scripts/enlace.js')}}"></script>
 <script type="text/javascript" src="{{asset('/assets/js/scripts/validaciones.js')}}"></script>
+<script type="text/javascript" src="{{asset('/assets/js/scripts/frame.js')}}"></script>
 <script type="text/javascript" src="{{asset('/assets/js/scripts/categorias.js')}}"></script>
