@@ -77,6 +77,10 @@
                                 <a class="nav-link" href="{{route('products.index')}}">Productos</a>
                             </li>
         
+                            <li class="nav-item"> {{-- Provider --}}
+                                <a class="nav-link" href="{{route('providers.index')}}">Proveedores</a>
+                            </li>
+        
                             <li class="nav-item"> {{-- Management --}}
                                 <a class="nav-link" href="{{route('managements.index')}}">Gerencias</a>
                             </li>

@@ -4,7 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\PruebaJs\CreateUserController;
+use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\RegUserController;
 use App\Http\Controllers\RequirementController;
 use Illuminate\Support\Facades\Route;
@@ -39,5 +39,6 @@ Route::resource('categories', CategoryController::class)->middleware('auth');
 Route::resource('products', ProductController::class)->middleware('auth');
 
 Route::resource('requirements', RequirementController::class)->middleware('auth');
-
 Route::get('requirements/historic/{user}', [RequirementController::class, 'RequirementByManagement'])->middleware('auth');
+
+Route::resource('providers', ProviderController::class)->middleware('auth');

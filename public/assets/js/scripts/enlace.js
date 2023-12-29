@@ -77,6 +77,86 @@ function userDelete(id){
   });
 }
 
+
+// PROVIDERS
+function providerCreate(){
+  var formId = "#FormProviderCreate";
+  $S(formId).validationEngine("attach", {
+    autoPositionUpdate: true,
+    onValidationComplete: function (_form, status) {
+      if (status == true) {
+        $S('#transparencia').fadeIn('slow');
+        $S("#error").hide();
+        var dataString = $S(formId).serialize();
+        // console.log(dataString);
+        $S.ajax({
+          url:    "/providers",
+          method: "POST",
+          data:   dataString,
+          success: function (response) {
+            // Manejar la respuesta del servidor
+            $S('#estatus').append(response.script); // Agregar el script al cuerpo del documento
+            $S('#alerta').fadeIn('slow');           // Mostrar el mensaje de alerta
+          }
+        });
+      }
+    }
+  });
+}
+
+function providerEdit(id){
+  var estatus = "#estatusEdit"+id;
+  var formId = "#FormEditProvider_"+id;
+  $S(formId).validationEngine("attach", {
+    autoPositionUpdate: true,
+    onValidationComplete: function (_form, status) {
+      if (status == true) {
+        $S('#transparencia').fadeIn('slow');
+        $S("#error").hide();
+        var dataString = $S(formId).serialize();
+        // console.log(dataString);
+        $S.ajax({
+          url:    "/providers/"+id,
+          method: "PUT",
+          data:   dataString,
+          success: function (response) {
+            // Manejar la respuesta del servidor
+            $S(estatus).append(response.script);    // Agregar el script al cuerpo del documento
+            $S('#alerta').fadeIn('slow');           // Mostrar el mensaje de alerta
+          }
+        });
+      }
+    }
+  });
+}
+
+function providerDelete(id){
+  var estatus = "#estatusDelete"+id;
+  var formId = "#FormDeleteProvider_"+id;
+  $S(formId).validationEngine("attach", {
+    autoPositionUpdate: true,
+    onValidationComplete: function (_form, status) {
+      if (status == true) {
+        $S('#transparencia').fadeIn('slow');
+        $S("#error").hide();
+        var dataString = $S(formId).serialize();
+        // console.log(dataString);
+        $S.ajax({
+          url:    "/providers/"+id,
+          method: "DELETE",
+          data:   dataString,
+          success: function (response) {
+            // Manejar la respuesta del servidor
+            $S(estatus).append(response.script);    // Agregar el script al cuerpo del documento
+            $S('#alerta').fadeIn('slow');           // Mostrar el mensaje de alerta
+          }
+        });
+      }
+    }
+  });
+}
+
+
 // CATEGORIES
 function categoryCreate(){
   var formId = "#FormCreateCategory";
