@@ -46,7 +46,7 @@ class ProductController extends Controller
             'script' => '<script type="text/javascript">	
                             $S(\'#transparencia\').fadeOut(\'slow\',function(){
                                 $S(\'#alerta\').css(\'display\',\'block\');
-                                setTimeout(\'window.parent.location.href="/managements"\', 1000);      
+                                setTimeout(\'window.parent.location.href="/products"\', 1000);      
                             });
                         </script>
                         <div class="alert alert-success col-lg-12" id="alerta" style="display:none; margin-bottom:0px; font-size:13px; margin-top:15px;">
@@ -88,7 +88,7 @@ class ProductController extends Controller
             'script' => '<script type="text/javascript">	
                             $S(\'#transparencia\').fadeOut(\'slow\',function(){
                                 $S(\'#alerta\').css(\'display\',\'block\');
-                                setTimeout(\'window.parent.location.href="/managements"\', 1000);      
+                                setTimeout(\'window.parent.location.href="/products"\', 1000);      
                             });
                         </script>
                         <div class="alert alert-success col-lg-12" id="alerta" style="display:none; margin-bottom:0px; font-size:13px; margin-top:15px;">
@@ -112,7 +112,7 @@ class ProductController extends Controller
             'script' => '<script type="text/javascript">	
                             $S(\'#transparencia\').fadeOut(\'slow\',function(){
                                 $S(\'#alerta\').css(\'display\',\'block\');
-                                setTimeout(\'window.parent.location.href="/managements"\', 1000);      
+                                setTimeout(\'window.parent.location.href="/products"\', 1000);      
                             });
                         </script>
                         <div class="alert alert-success col-lg-12" id="alerta" style="display:none; margin-bottom:0px; font-size:13px; margin-top:15px;">

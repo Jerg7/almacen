@@ -65,7 +65,19 @@ class RegUserController extends Controller
         $users->security_answer  = $request->input('answer');
         $users->save();
 
-        return redirect()->back();  
+        // return redirect()->back();  
+        return response()->json([
+            'script' => '<script type="text/javascript">	
+                            $S(\'#transparencia\').fadeOut(\'slow\',function(){
+                                $S(\'#alerta\').css(\'display\',\'block\');
+                                setTimeout(\'window.parent.location.href="/users"\', 1000);      
+                            });
+                        </script>
+                        <div class="alert alert-success col-lg-12" id="alerta" style="display:none; margin-bottom:0px; font-size:13px; margin-top:15px;">
+                            <i class="fa-sharp fa-thin fa-circle-check"></i>
+                            <strong>¡Registro almacenado satisfactoriamente!</strong>
+                        </div>'
+        ]);
     }
 
     /**
@@ -113,7 +125,19 @@ class RegUserController extends Controller
         $details->id_position          = $request->input('position');
         $details->update();
 
-        return redirect()->back();
+        // return redirect()->back();
+        return response()->json([
+            'script' => '<script type="text/javascript">	
+                            $S(\'#transparencia\').fadeOut(\'slow\',function(){
+                                $S(\'#alerta\').css(\'display\',\'block\');
+                                setTimeout(\'window.parent.location.href="/users"\', 1000);      
+                            });
+                        </script>
+                        <div class="alert alert-success col-lg-12" id="alerta" style="display:none; margin-bottom:0px; font-size:13px; margin-top:15px;">
+                            <i class="fa-sharp fa-thin fa-circle-check"></i>
+                            <strong>¡Registro actualizado satisfactoriamente!</strong>
+                        </div>'
+        ]);
     }
 
     /**
@@ -125,5 +149,18 @@ class RegUserController extends Controller
         $users = Reg_user::find($id);
         $users->id_status = '2';
         $users->update();
-        return redirect()->back();
+
+        // return redirect()->back();
+        return response()->json([
+            'script' => '<script type="text/javascript">	
+                            $S(\'#transparencia\').fadeOut(\'slow\',function(){
+                                $S(\'#alerta\').css(\'display\',\'block\');
+                                setTimeout(\'window.parent.location.href="/users"\', 1000);      
+                            });
+                        </script>
+                        <div class="alert alert-success col-lg-12" id="alerta" style="display:none; margin-bottom:0px; font-size:13px; margin-top:15px;">
+                            <i class="fa-sharp fa-thin fa-circle-check"></i>
+                            <strong>¡Registro eliminado satisfactoriamente!</strong>
+                        </div>'
+        ]);
     }}

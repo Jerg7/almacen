@@ -1,5 +1,5 @@
 {{-- Modal show --}}
-<div class="modal fade" id="show{{$user->id_user}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+<div class="modal fade" id="show{{$user->id_user}}" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -33,7 +33,7 @@
 
 
 {{-- Modal edit --}}
-<div class="modal fade" id="edit{{$user->id_user}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<div class="modal fade" id="edit{{$user->id_user}}" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
 
@@ -42,7 +42,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form action="{{route('users.update', $user->id_user)}}" method="POST">
+            <div id="transparencia" style="display:none"></div>
+
+            <form id="FormEditUser_{{$user->id_user}}">
 
                 @csrf
                 @method('PUT')
@@ -198,11 +200,18 @@
                         
                     </div>
                 </div>
-                
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-target="#show{{$user->id_user}}" data-bs-toggle="modal">Volver</button>
-                    <button type="submit" class="btn btn-success">Guardar</button>
+
+                <div class="row">
+                    <div class="form-group">
+                        <div id="estatusEdit{{$user->id_user}}"></div>
+                    </div>
                 </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    {{-- <button type="submit" class="btn btn-success">Actualizar</button> --}}
+                    <button type="submit" class="btn btn-success" onclick="userEdit({{$user->id_user}})">Actualizar</button>
+                </div>  
 
             </form>
 
@@ -212,7 +221,7 @@
 
 
 {{-- Modal delete --}}
-<div class="modal fade" id="delete{{$user->id_user}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+<div class="modal fade" id="delete{{$user->id_user}}" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             
@@ -221,7 +230,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form action="{{route('users.destroy', $user->id_user)}}" method="POST">
+            <div id="transparencia" style="display:none"></div>
+
+            <form id="FormDeleteUser_{{$user->id_user}}"></form>
 
                 @csrf
                 @method('DELETE')
@@ -230,9 +241,16 @@
                     ¿Está seguro de que desea eliminar el usuario de <strong><em>{{$user->user_detail->names}} {{$user->user_detail->lastnames}}</em></strong>?
                 </div>
 
+                <div class="row">
+                    <div class="form-group">
+                        <div id="estatusDelete{{$user->id_user}}"></div>
+                    </div>
+                </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-target="#show{{$user->id_user}}" data-bs-toggle="modal">Volver</button>
-                    <button type="submit" class="btn btn-success">Confirmar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    {{-- <button type="submit" class="btn btn-success">Confirmar</button> --}}
+                    <button type="submit" class="btn btn-success" onclick="userDelete({{$user->id_user}})">Confirmar</button>
                 </div>
 
             </form>

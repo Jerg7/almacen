@@ -8,7 +8,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form action="{{route('users.store')}}" method="POST">
+            <div id="transparencia" style="display:none"></div>
+
+            {{-- <form action="{{route('users.store')}}" method="POST"> --}}
+            <form id="FormCreateUser" method="POST">
 
                 @csrf
 
@@ -217,9 +220,14 @@
 
                 </div>
 
+                <div class="form-group">
+                    <div id="estatus"></div>
+                </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success">Guardar</button>
+                    {{-- <button type="submit" class="btn btn-success">Guardar</button> --}}
+                    <button type="submit" class="btn btn-success" onclick="userCreate()">Guardar</button>
                 </div>
 
             </form>
