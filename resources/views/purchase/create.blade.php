@@ -26,6 +26,10 @@
                                 @endforeach
                             </select>                        
                         </div>
+                        <div class="col">
+                            <label for="bill" class="form-label">Nº Documento / Factura:</label>
+                            <input type="text" class="form-control" name="bill">
+                        </div>
                     </div>
 
                     <div class="row">
@@ -33,9 +37,6 @@
                             <label for="product" class="form-label">Producto: </label>
                             <select name="product[]" id="product_" class="form-control">
                                 <option selected disabled>Seleccione...</option>
-                                {{-- @foreach ($products as $product)
-                                    <option value="{{$product->id_product}}">{{$product->description}}</option>    
-                                @endforeach --}}
                             </select>                        
                         </div>
                         <div class="col">

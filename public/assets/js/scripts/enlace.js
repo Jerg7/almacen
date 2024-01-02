@@ -562,9 +562,9 @@ function purchaseCreate(){
         $S('#transparencia').fadeIn('slow');
         $S("#error").hide();
         var dataString = $S(formId).serialize();
-        // console.log(dataString);
+        console.log(dataString);
         $S.ajax({
-          url:    "/purchase",
+          url:    "/purchases",
           method: "POST",
           data:   dataString,
           success: function (response) {

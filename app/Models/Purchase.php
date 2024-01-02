@@ -17,6 +17,7 @@ class Purchase extends Model
         'id_purchase',
         'id_product',
         'id_provider',
+        'bill',
         'amount',
         'price',
         'rif'

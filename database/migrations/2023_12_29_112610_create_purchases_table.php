@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('id_provider')->references('id_provider')->on('providers');
             $table->unsignedBigInteger('id_product');
             $table->foreign('id_product')->references('id_product')->on('products');
+            $table->string('bill');
             $table->string('amount');
             $table->string('price');
             $table->timestamps();
