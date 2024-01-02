@@ -8,7 +8,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form action="{{route('products.update', $product->id_product)}}" method="POST">
+            <div id="transparencia" style="display:none"></div>
+
+            {{-- <form action="{{route('products.update', $product->id_product)}}" method="POST"> --}}
+            <form id="FormEditProduct_{{$product->id_product}}">
 
                 @csrf
                 @method('PUT')
@@ -16,13 +19,13 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="descripcion" class="form-label" style="text-aling: left;">Categoría:</label>
-                            <select name="categoria" id="" class="form-control">
-                                @foreach ($categories as $category)
-                                    @if ($category->id_category === $product->id_category)
-                                        <option value="{{$category->id_category}}" selected>{{$category->description}}</option>  
+                            <label for="provider" class="form-label" style="text-aling: left;">Proveedor:</label>
+                            <select name="provider" class="form-control">
+                                @foreach ($providers as $provider)
+                                    @if ($provider->id_provider === $product->id_provider)
+                                        <option value="{{$provider->id_provider}}" selected>{{$provider->description}}</option>  
                                     @else  
-                                        <option value="{{$category->id_category}}">{{$category->description}}</option>    
+                                        <option value="{{$provider->id_provider}}">{{$provider->description}}</option>    
                                     @endif
                                 @endforeach
                             </select>
@@ -31,19 +34,23 @@
 
                     <div class="row">
                         <div class="col">
-                            <label for="descripcion" class="form-label" style="text-aling: left;">Nombre de producto:</label>
-                            <input type="text" class="form-control" name="descripcion" id="descripcion" aria-describedby="helpId" placeholder="" value="{{$product->description}}"/>
+                            <label for="description" class="form-label" style="text-aling: left;">Nombre de producto:</label>
+                            <input type="text" class="form-control" name="description" id="description" aria-describedby="helpId" placeholder="" value="{{$product->description}}"/>
                         </div>
                         <div class="col">
-                            <label for="cantidad" class="form-label" style="text-aling: left;">Cantidad:</label>
-                            <input type="text" class="form-control" name="cantidad" id="cantidad" aria-describedby="helpId" placeholder="" value="{{$product->amount}}"/>
+                            <label for="amount" class="form-label" style="text-aling: left;">Cantidad:</label>
+                            <input type="text" class="form-control" name="amount" id="amount" aria-describedby="helpId" placeholder="" value="{{$product->amount}}"/>
                         </div>
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <div id="estatusEdit{{$product->id_product}}"></div>
+                </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success">Actualizar</button>
+                    <button type="submit" class="btn btn-success" onclick="productEdit({{$product->id_product}})">Actualizar</button>
                 </div>
 
             </form>
@@ -63,7 +70,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form action="{{route('products.destroy', $product->id_product)}}" method="POST">
+            <div id="transparencia" style="display:none"></div>
+
+            {{-- <form action="{{route('products.destroy', $product->id_product)}}" method="POST"> --}}
+            <form action="FormDeleteProduct_{{$product->id_product}}">
 
                 @csrf
                 @method('DELETE')
@@ -72,9 +82,13 @@
                     ¿Está seguro de que desea eliminar la producto <strong><em>{{$product->descripcion}}</em></strong>?
                 </div>
 
+                <div class="form-group">
+                    <div id="estatusEdit{{$product->id_product}}"></div>
+                </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success">Confirmar</button>
+                    <button type="submit" class="btn btn-success" onclick="productDelete({{$product->id_product}})">Confirmar</button>
                 </div>
 
             </form>

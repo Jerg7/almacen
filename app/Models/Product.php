@@ -14,13 +14,13 @@ class Product extends Model
     protected $primaryKey = 'id_product';
 
     protected $fillable = [
-        'id_category',
+        'id_provider',
         'description',
         'amount'
     ];
     
-    public function Category()
+    public function Provider()
     {
-        return $this->hasOne(Category::class, 'id_category', 'id_category');
+        return $this->hasOne(Provider::class, 'id_provider', 'id_provider');
     }
 }

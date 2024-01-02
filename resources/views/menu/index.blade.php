@@ -70,7 +70,7 @@
                         <ul class="dropdown-menu">
         
                             <li class="nav-item"> {{-- Category --}}
-                                <a class="nav-link" href="{{route('categories.index')}}">Categorías</a>
+                                <a class="nav-link" href="{{route('purchases.index')}}">Compras</a>
                             </li>
         
                             <li class="nav-item"> {{-- Product --}}

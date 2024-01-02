@@ -1,5 +1,5 @@
 {{-- Modal create --}}
-<div class="modal fade" id="create" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="prueba" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
 
@@ -19,25 +19,25 @@
                     <div class="row">
                         <div class="col">
                             <label for="provider" class="form-label">Proveedor: </label>
-                            <select name="provider[]" id="provider" class="form-control" onclick="selectProvider()">
+                            <select name="provider[]" class="form-control">
                                 <option selected disabled>Seleccione...</option>
                                 @foreach ($providers as $provider)
                                     <option value="{{$provider->id_provider}}">{{$provider->description}}</option>    
                                 @endforeach
                             </select>                        
                         </div>
+                        <div class="col">
+                            <label for="product" class="form-label">Producto: </label>
+                            <select name="product[]" class="form-control">
+                                <option selected disabled>Seleccione...</option>
+                                @foreach ($products as $product)
+                                    <option value="{{$product->id_product}}">{{$product->description}}</option>    
+                                @endforeach
+                            </select>                        
+                        </div>
                     </div>
 
                     <div class="row">
-                        <div class="col">
-                            <label for="product" class="form-label">Producto: </label>
-                            <select name="product[]" id="product_" class="form-control">
-                                <option selected disabled>Seleccione...</option>
-                                {{-- @foreach ($products as $product)
-                                    <option value="{{$product->id_product}}">{{$product->description}}</option>    
-                                @endforeach --}}
-                            </select>                        
-                        </div>
                         <div class="col">
                             <label for="amount" class="form-label">Cantidad: </label>
                             <div class="input-group">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
 
-                    <div id="aggInput_"></div>
+                    <div id="aggInput"></div>
 
                 </div>
 

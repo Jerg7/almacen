@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Category;
+use App\Models\Provider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
@@ -16,10 +16,8 @@ class ProductController extends Controller
     {
         //
         $products   = Product::where('id_status', 1)->get();
-        $categories = Category::where('id_status', 1)->get();
-        $tiempoRestante = Config::get('session.lifetime') - (time() - session('last_activity'));
-
-        return view('product.index', compact('products', 'categories', 'tiempoRestante'))->with('i');
+        $providers  = Provider::where('id_status', 1)->get();
+        return view('product.index', compact('products', 'providers'))->with('i');
     }
 
     /**
@@ -37,9 +35,9 @@ class ProductController extends Controller
     {
         //
         $products = new Product;
-        $products->id_category = $request->input('categoria');
-        $products->description = $request->input('descripcion');
-        $products->amount      = $request->input('cantidad');
+        $products->id_provider = $request->input('provider');
+        $products->description = $request->input('description');
+        $products->amount      = $request->input('amount');
         $products->id_status   = '1';
         $products->save();
         return response()->json([
@@ -80,9 +78,9 @@ class ProductController extends Controller
     {
         //
         $products = Product::find($id);
-        $products->id_category = $request->input('categoria');
-        $products->description = $request->input('descripcion');
-        $products->amount      = $request->input('cantidad');
+        $products->id_provider = $request->input('provider');
+        $products->description = $request->input('description');
+        $products->amount      = $request->input('amount');
         $products->update();
         return response()->json([
             'script' => '<script type="text/javascript">	

@@ -25,7 +25,7 @@
 
             <thead style="background-color: #125873; color: white;">
                 <tr>
-                    <th class="col-md-4" scope="col">Categoría</th>
+                    <th class="col-md-4" scope="col">Proveedor</th>
                     <th class="col-md-4" scope="col">Producto</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Acciones</th>
@@ -35,7 +35,7 @@
             <tbody>
                 @foreach ($products as $product)
                     <tr>
-                        <td>{{$product->category->description}}</td>
+                        <td>{{$product->provider->description}}</td>
                         <td>{{$product->description}}</td>
                         <td>{{$product->amount}}</td>
                         <td>

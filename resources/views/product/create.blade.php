@@ -10,7 +10,6 @@
 
             <div id="transparencia" style="display:none"></div>
 
-            {{-- <form action="{{route('products.store')}}" method="POST"> --}}
             <form id="FormCreateProduct" method="POST">
 
                 @csrf
@@ -18,23 +17,23 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <label for="descripcion" class="form-label" style="text-aling: left;">Categoria:</label>
-                            <select name="categoria" id="" class="form-control">
+                            <label for="provider" class="form-label" style="text-aling: left;">Proveedor: </label>
+                            <select name="provider" class="form-control">
                                 <option selected disabled>Seleccione...</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{$category->id_category}}">{{$category->description}}</option>    
+                                @foreach ($providers as $provider)
+                                    <option value="{{$provider->id_provider}}">{{$provider->description}}</option>    
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
-                            <label for="descripcion" class="form-label" style="text-aling: left;">Nombre de producto:</label>
-                            <input type="text" class="form-control" name="descripcion" id="descripcion" aria-describedby="helpId" placeholder=""/>
+                            <label for="description" class="form-label" style="text-aling: left;">Nombre de producto:</label>
+                            <input type="text" class="form-control" name="description" id="description" aria-describedby="helpId" placeholder=""/>
                         </div>
                         <div class="col">
-                            <label for="cantidad" class="form-label" style="text-aling: left;">Cantidad:</label>
-                            <input type="text" class="form-control" name="cantidad" id="cantidad" aria-describedby="helpId" placeholder=""/>
+                            <label for="amount" class="form-label" style="text-aling: left;">Cantidad:</label>
+                            <input type="text" class="form-control" name="amount" id="amount" aria-describedby="helpId" placeholder=""/>
                         </div>
                     </div>
                 </div>

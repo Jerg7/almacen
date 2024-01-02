@@ -120,7 +120,14 @@ class PurchaseController extends Controller
     }
 
     public function byProviders()
-{
-    return response()->json(Provider::all());
-}
+    {
+        return response()->json(Provider::all());
+    }
+        public function byProducts()
+    {
+        return response()->json(Product::all());
+    }
+    public function byPurchase($provider){ // cambiar $category por $provider
+        return Product::where('id_provider', $provider)->get();
+    }
 }

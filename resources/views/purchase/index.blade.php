@@ -14,6 +14,10 @@
                 <span><i class="fa-solid fa-plus"></i></span> Nueva compra
             </button>
             @include('purchase.create')
+            {{-- <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#prueba">
+                <span><i class="fa-solid fa-plus"></i></span> Pruebas
+            </button>
+            @include('purchase.prueba') --}}
         </div>
 
     </div>

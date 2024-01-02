@@ -24,3 +24,8 @@ Route::get('/requirement/{category}/productByCategory', [RequirementController::
 
 Route::get('/purchase/provider', [PurchaseController::class, 'byProviders']);
 
+Route::get('/purchase/product', [PurchaseController::class, 'byProducts']);
+
+Route::get('/purchase/{provider}/productByProvider', [PurchaseController::class, 'byPurchase']);
+
+
