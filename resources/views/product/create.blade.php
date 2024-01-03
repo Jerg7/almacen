@@ -32,8 +32,8 @@
                             <input type="text" class="form-control" name="description" id="description" aria-describedby="helpId" placeholder=""/>
                         </div>
                         <div class="col">
-                            <label for="amount" class="form-label" style="text-aling: left;">Cantidad:</label>
-                            <input type="text" class="form-control" name="amount" id="amount" aria-describedby="helpId" placeholder=""/>
+                            <label for="prices" class="form-label" style="text-aling: left;">Costo (Bs.):</label>
+                            <input type="text" class="form-control" name="prices" id="prices" aria-describedby="helpId" placeholder=""/>
                         </div>
                     </div>
                 </div>

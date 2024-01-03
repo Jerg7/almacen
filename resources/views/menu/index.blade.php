@@ -41,7 +41,7 @@
                     
                     <li class="nav-item dropdown" style="text-align:right;"> {{-- Requirement --}}
                         <a class="nav-link dropdown-toggle nav-right" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Requerimientos 
+                            <i class="fa-solid fa-list-check"></i> Requerimientos 
                         </a>
                         <ul class="dropdown-menu">
                             <li>
@@ -57,6 +57,17 @@
                             </li>
                         </ul>
                     </li>
+                    
+                    <li class="nav-item dropdown" style="text-align:right;"> {{-- Purchase --}}
+                        <a class="nav-link dropdown-toggle nav-right" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-cart-shopping"></i> Compras 
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('purchases.index')}}">Registrar compras</a>
+                            </li>
+                        </ul>
+                    </li>
 
                 </ul>
 
@@ -65,13 +76,9 @@
 
                     <li class="nav-item dropdown" style="text-align:right;"> {{-- User --}}
                         <a class="nav-link dropdown-toggle nav-right" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Mantenimiento        
+                            <i class="fa-solid fa-gear"></i> Mantenimiento        
                         </a>
                         <ul class="dropdown-menu">
-        
-                            <li class="nav-item"> {{-- Category --}}
-                                <a class="nav-link" href="{{route('purchases.index')}}">Compras</a>
-                            </li>
         
                             <li class="nav-item"> {{-- Product --}}
                                 <a class="nav-link" href="{{route('products.index')}}">Productos</a>

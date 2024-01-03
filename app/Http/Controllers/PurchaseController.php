@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Provider;
 use App\Models\Purchase;
+use App\Models\PurchasingData;
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
@@ -40,22 +41,25 @@ class PurchaseController extends Controller
         $bills      = $request->input('bill');
         $amounts    = $request->input('amount');
         $prices     = $request->input('price');
-        for ($i = 0; $i < count($providers); $i++) {
-            $purchases   = new Purchase();
-            $purchases->id_provider  = $providers[$i];
-            $purchases->id_product   = $products[$i];
-            $purchases->bill         = $bills[$i];
-            $purchases->amount       = $amounts[$i];
-            $purchases->price        = $prices[$i];
-            $purchases->id_status    = 1;
-            $purchases->id_order_status = 1;
-            $purchases->save(); 
+        for ($i = 0; $i < count($products); $i++) {
+            $purchasing               = new PurchasingData();
+            $purchasing->id_provider  = $providers;
+            $purchasing->bill         = $bills;
+            $purchasing->id_product   = $products[$i];
+            $purchasing->amount       = $amounts[$i];
+            $purchasing->price        = $prices[$i];
+            $purchasing->save(); 
+
+            $purchases                       = new Purchase();
+            $purchases->id_status            = 2;
+            $purchases->id_purchasing_data   = $purchasing->id_purchasing_data;
+            $purchases->save();
         }
         return response()->json([
             'script' => '<script type="text/javascript">	
                             $S(\'#transparencia\').fadeOut(\'slow\',function(){
                                 $S(\'#alerta\').css(\'display\',\'block\');
-                                setTimeout(\'window.parent.location.href="/purchase"\', 1000);      
+                                setTimeout(\'window.parent.location.href="/purchases"\', 1000);      
                             });
                         </script>
                         <div class="alert alert-success col-lg-12" id="alerta" style="display:none; margin-bottom:0px; font-size:13px; margin-top:15px;">
@@ -88,17 +92,20 @@ class PurchaseController extends Controller
     {
         //
         $purchases              = Purchase::find($id);
-        $purchases->id_provider = $request->input('provider');
-        $purchases->id_product  = $request->input('product');
-        $purchases->bill        = $request->input('bill');
-        $purchases->amount      = $request->input('amount');
-        $purchases->price       = $request->input('price');
-        $purchases->update();
+        $id_purchasing_data     = $purchases->id_purchasing_data;
+
+        $purchasing              = PurchasingData::find($id_purchasing_data);
+        $purchasing->id_provider = $request->input('provider');
+        $purchasing->id_product  = $request->input('product');
+        $purchasing->bill        = $request->input('bill');
+        $purchasing->amount      = $request->input('amount');
+        $purchasing->price       = $request->input('price');
+        $purchasing->update();
         return response()->json([
             'script' => '<script type="text/javascript">	
                             $S(\'#transparencia\').fadeOut(\'slow\',function(){
                                 $S(\'#alerta\').css(\'display\',\'block\');
-                                setTimeout(\'window.parent.location.href="/purchase"\', 1000);      
+                                setTimeout(\'window.parent.location.href="/purchases"\', 1000);      
                             });
                         </script>
                         <div class="alert alert-success col-lg-12" id="alerta" style="display:none; margin-bottom:0px; font-size:13px; margin-top:15px;">
@@ -121,7 +128,7 @@ class PurchaseController extends Controller
             'script' => '<script type="text/javascript">	
                             $S(\'#transparencia\').fadeOut(\'slow\',function(){
                                 $S(\'#alerta\').css(\'display\',\'block\');
-                                setTimeout(\'window.parent.location.href="/purchase"\', 1000);      
+                                setTimeout(\'window.parent.location.href="/purchases"\', 1000);      
                             });
                         </script>
                         <div class="alert alert-success col-lg-12" id="alerta" style="display:none; margin-bottom:0px; font-size:13px; margin-top:15px;">
@@ -139,7 +146,8 @@ class PurchaseController extends Controller
     {
         return response()->json(Product::all());
     }
-    public function byPurchase($provider){ // cambiar $category por $provider
-        return Product::where('id_provider', $provider)->get();
+    public function byPurchase($provider){ 
+        return Product::join('products_datas', 'products_datas.id_product_data', '=', 'products.id_product_data')
+                            ->where('id_provider', $provider)->get();
     }
 }

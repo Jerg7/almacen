@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col">
                             <label for="provider" class="form-label">Proveedor: </label>
-                            <select name="provider[]" id="provider" class="form-control" onclick="selectProvider()">
+                            <select name="provider" id="provider" class="form-control" onclick="selectProvider()">
                                 <option selected disabled>Seleccione...</option>
                                 @foreach ($providers as $provider)
                                     <option value="{{$provider->id_provider}}">{{$provider->description}}</option>    
@@ -43,7 +43,7 @@
                             <label for="amount" class="form-label">Cantidad: </label>
                             <div class="input-group">
                                 <span class="input-group-text boton_span" onclick="btn_decrement()">-</span>
-                                <input type="number[]" class="form-control" name="amount" id="requested_amount" value="0">
+                                <input type="number" class="form-control" name="amount[]" id="requested_amount" value="0">
                                 <span class="input-group-text boton_span" onclick="btn_increment()">+</span>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                     <div class="d-flex justify-content-start">
                         <button type="button" class="btn btn-primary" onclick="aggInput()"><i class="fa-solid fa-plus"></i> Añadir producto</button>
                     </div>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteaggInput()">Cerrar</button>
+                    <button type="reset" class="btn btn-danger" data-bs-dismiss="modal" onclick="deleteaggInput()">Cerrar</button>
                     <button type="submit" class="btn btn-success" onclick="purchaseCreate()">Guardar</button>
                 </div>
 

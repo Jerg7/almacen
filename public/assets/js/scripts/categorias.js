@@ -295,29 +295,32 @@ function aggInput(){
         // .col amount
         const label_amount = F.create('label', {innerHTML: 'Cantidad: '});
                 label_amount.classList.add("form-label");
-
-        const span_decrement_amount = F.create('span', {innerHTML: '-', onclick: function(){
-                var input = document.getElementById('requested_amount_'+j);
-                if (parseInt(input.value) > 0) {
-                    input.value = parseInt(input.value) - 1;
-                }
-            }
-        });
-                span_decrement_amount.classList.add("input-group-text");
-                span_decrement_amount.classList.add("boton_span");
         
         const input_amount = F.create('input', {
             type: 'number', name: 'amount[]', value: '0', id: 'requested_amount_'+j
         });
                 input_amount.classList.add("form-control");
 
+        const span_decrement_amount = F.create('span', {innerHTML: '-', onclick: function(){
+            let currentJ = j - 1;
+            var input = document.getElementById('requested_amount_'+currentJ);
+            if (parseInt(input.value) > 0) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }});
+
+                span_decrement_amount.classList.add("input-group-text");
+                span_decrement_amount.classList.add("boton_span");
+
         const span_increment_amount = F.create('span', {innerHTML: '+', onclick: function(){
-            var input = document.getElementById('requested_amount_'+j);
+            let currentJ = j - 1;
+            var input = document.getElementById('requested_amount_'+currentJ);
             input.value = parseInt(input.value) + 1;
             }
         });
                 span_increment_amount.classList.add("input-group-text");
                 span_increment_amount.classList.add("boton_span");
+        j++
 
 
         // .col price

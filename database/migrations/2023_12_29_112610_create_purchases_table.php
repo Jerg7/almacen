@@ -12,18 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('purchases', function (Blueprint $table) {
+            // $table->id('id_purchase');
+            // $table->unsignedBigInteger('id_status');
+            // $table->foreign('id_status')->references('id_status')->on('status');
+            // $table->unsignedBigInteger('id_order_status');
+            // $table->foreign('id_order_status')->references('id_status')->on('status_purchases');
+            // $table->unsignedBigInteger('id_provider');
+            // $table->foreign('id_provider')->references('id_provider')->on('providers');
+            // $table->unsignedBigInteger('id_product');
+            // $table->foreign('id_product')->references('id_product')->on('products');
+            // $table->string('bill');
+            // $table->string('amount');
+            // $table->string('price');
+            // $table->timestamps();
+
             $table->id('id_purchase');
             $table->unsignedBigInteger('id_status');
-            $table->foreign('id_status')->references('id_status')->on('status');
-            $table->unsignedBigInteger('id_order_status');
-            $table->foreign('id_order_status')->references('id_status')->on('status_purchases');
-            $table->unsignedBigInteger('id_provider');
-            $table->foreign('id_provider')->references('id_provider')->on('providers');
-            $table->unsignedBigInteger('id_product');
-            $table->foreign('id_product')->references('id_product')->on('products');
-            $table->string('bill');
-            $table->string('amount');
-            $table->string('price');
+            $table->foreign('id_status')->references('id_status')->on('status_purchases');
+            $table->unsignedBigInteger('id_purchasing_data');
+            $table->foreign('id_purchasing_data')->references('id_purchasing_data')->on('purchasing_datas');
             $table->timestamps();
         });
     }

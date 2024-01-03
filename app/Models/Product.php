@@ -15,12 +15,17 @@ class Product extends Model
 
     protected $fillable = [
         'id_provider',
+        'id_product_data',
         'description',
-        'amount'
+        'prices',
     ];
     
     public function Provider()
     {
         return $this->hasOne(Provider::class, 'id_provider', 'id_provider');
+    }
+    public function Product_data()
+    {
+        return $this->hasOne(ProductsData::class, 'id_product_data', 'id_product_data');
     }
 }

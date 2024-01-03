@@ -10,7 +10,6 @@
 
             <div id="transparencia" style="display:none"></div>
 
-            {{-- <form action="{{route('products.update', $product->id_product)}}" method="POST"> --}}
             <form id="FormEditProduct_{{$product->id_product}}">
 
                 @csrf
@@ -35,11 +34,11 @@
                     <div class="row">
                         <div class="col">
                             <label for="description" class="form-label" style="text-aling: left;">Nombre de producto:</label>
-                            <input type="text" class="form-control" name="description" id="description" aria-describedby="helpId" placeholder="" value="{{$product->description}}"/>
+                            <input type="text" class="form-control" name="description" id="description" aria-describedby="helpId" value="{{$product->product_data->description}}"/>
                         </div>
                         <div class="col">
-                            <label for="amount" class="form-label" style="text-aling: left;">Cantidad:</label>
-                            <input type="text" class="form-control" name="amount" id="amount" aria-describedby="helpId" placeholder="" value="{{$product->amount}}"/>
+                            <label for="prices" class="form-label" style="text-aling: left;">Costo (Bs.):</label>
+                            <input type="text" class="form-control" name="prices" id="prices" aria-describedby="helpId" value="{{$product->product_data->prices}}"/>
                         </div>
                     </div>
                 </div>
@@ -72,14 +71,13 @@
 
             <div id="transparencia" style="display:none"></div>
 
-            {{-- <form action="{{route('products.destroy', $product->id_product)}}" method="POST"> --}}
             <form action="FormDeleteProduct_{{$product->id_product}}">
 
                 @csrf
                 @method('DELETE')
 
                 <div class="modal-body">
-                    ¿Está seguro de que desea eliminar la producto <strong><em>{{$product->descripcion}}</em></strong>?
+                    ¿Está seguro de que desea eliminar la producto <strong><em>{{$product->product_data->description}}</em></strong>?
                 </div>
 
                 <div class="form-group">

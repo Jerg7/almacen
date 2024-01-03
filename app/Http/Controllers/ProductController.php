@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductsData;
 use App\Models\Provider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -34,11 +35,15 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
-        $products = new Product;
-        $products->id_provider = $request->input('provider');
-        $products->description = $request->input('description');
-        $products->amount      = $request->input('amount');
-        $products->id_status   = '1';
+        $product_data               = new ProductsData;
+        $product_data->description  = $request->input('description');
+        $product_data->prices       = $request->input('prices');
+        $product_data->save();
+
+        $products                   = new Product;
+        $products->id_provider      = $request->input('provider');
+        $products->id_product_data  = $product_data->id_product_data;
+        $products->id_status        = '1';
         $products->save();
         return response()->json([
             'script' => '<script type="text/javascript">	
@@ -52,7 +57,6 @@ class ProductController extends Controller
                             <strong>¡Registro almacenado satisfactoriamente!</strong>
                         </div>'
                     ]);
-        // return redirect()->back();    
     }
 
     /**
@@ -77,11 +81,15 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $products = Product::find($id);
-        $products->id_provider = $request->input('provider');
-        $products->description = $request->input('description');
-        $products->amount      = $request->input('amount');
+        $products               = Product::find($id);
+        $id_product_data        = $products->id_product_data;
+        $products->id_provider  = $request->input('provider');
         $products->update();
+
+        $product_data               = ProductsData::find($id_product_data);
+        $product_data->description  = $request->input('description');
+        $product_data->prices       = $request->input('prices');
+        $product_data->update();
         return response()->json([
             'script' => '<script type="text/javascript">	
                             $S(\'#transparencia\').fadeOut(\'slow\',function(){
@@ -94,7 +102,6 @@ class ProductController extends Controller
                             <strong>¡Registro actualizado satisfactoriamente!</strong>
                         </div>'
                     ]);
-        // return redirect()->back();
     }
 
     /**
@@ -103,7 +110,7 @@ class ProductController extends Controller
     public function destroy(Request $request, $id)
     {
         //
-        $products = Product::find($id);
+        $products            = Product::find($id);
         $products->id_status = '2';
         $products->update();
         return response()->json([
@@ -118,6 +125,5 @@ class ProductController extends Controller
                             <strong>¡Registro eliminado satisfactoriamente!</strong>
                         </div>'
                     ]); 
-        // return redirect()->back();
     }
 }

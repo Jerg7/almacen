@@ -23,13 +23,9 @@ class Purchase extends Model
         'rif'
     ];
 
-    public function Product()
+    public function Purchasing_data()
     {
-        return $this->hasOne(Product::class, 'id_product', 'id_product');
+        return $this->hasOne(PurchasingData::class, 'id_purchasing_data', 'id_purchasing_data');
     }
 
-    public function Provider()
-    {
-        return $this->hasOne(Provider::class, 'id_provider', 'id_provider');
-    }
 }

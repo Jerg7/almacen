@@ -29,6 +29,7 @@
                     <th scope="col">Nombres de proveedor</th>
                     <th scope="col">Producto</th>
                     <th scope="col">Cantidad</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
 
@@ -36,8 +37,8 @@
                 @foreach ($purchases as $purchase)
                     <tr>
                         <td>{{$purchase->bill}}</td>
-                        <td>{{$purchase->provider->descripcion}}</td>
-                        <td>{{$purchase->product->descripcion}}</td>
+                        <td>{{$purchase->provider->description}}</td>
+                        <td>{{$purchase->product->description}}</td>
                         <td>{{$purchase->amount}}</td>
                         <td>
 
