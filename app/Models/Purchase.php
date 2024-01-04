@@ -19,7 +19,7 @@ class Purchase extends Model
         'id_provider',
         'bill',
         'amount',
-        'price',
+        'prices',
         'rif'
     ];
 

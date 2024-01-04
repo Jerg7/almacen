@@ -7,6 +7,7 @@ use App\Models\Provider;
 use App\Models\Purchase;
 use App\Models\PurchasingData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseController extends Controller
 {
@@ -16,10 +17,15 @@ class PurchaseController extends Controller
     public function index()
     {
         //
-        $purchases = Purchase::all();
-        $providers = Provider::where('id_status', 1)->get();
-        $products  = Product::where('id_status', 1)->get();
-        return view('purchase.index', compact('purchases', 'providers', 'products'));
+        $purchases  = Purchase::all();
+        $providers  = Provider::where('id_status', 1)->get();
+        $products   = Product::where('id_status', 1)->get();
+        $purchviews = Purchase::select('providers.description AS provider', 'purchasing_datas.bill AS bill', DB::raw('SUM(purchasing_datas.prices) AS total_prices'))
+                                    ->join('purchasing_datas', 'purchases.id_purchasing_data', '=', 'purchasing_datas.id_purchasing_data')
+                                    ->join('providers', 'providers.id_provider', '=', 'purchasing_datas.id_provider')
+                                    ->groupBy('purchasing_datas.bill')
+                                    ->get();
+        return view('purchase.index', compact('purchases', 'providers', 'products', 'purchviews'));
     }
 
     /**
@@ -40,18 +46,18 @@ class PurchaseController extends Controller
         $products   = $request->input('product');
         $bills      = $request->input('bill');
         $amounts    = $request->input('amount');
-        $prices     = $request->input('price');
+        $prices     = $request->input('prices');
         for ($i = 0; $i < count($products); $i++) {
             $purchasing               = new PurchasingData();
             $purchasing->id_provider  = $providers;
             $purchasing->bill         = $bills;
             $purchasing->id_product   = $products[$i];
             $purchasing->amount       = $amounts[$i];
-            $purchasing->price        = $prices[$i];
+            $purchasing->prices       = $prices[$i];
             $purchasing->save(); 
 
             $purchases                       = new Purchase();
-            $purchases->id_status            = 2;
+            $purchases->id_status            = 1;
             $purchases->id_purchasing_data   = $purchasing->id_purchasing_data;
             $purchases->save();
         }
@@ -99,7 +105,7 @@ class PurchaseController extends Controller
         $purchasing->id_product  = $request->input('product');
         $purchasing->bill        = $request->input('bill');
         $purchasing->amount      = $request->input('amount');
-        $purchasing->price       = $request->input('price');
+        $purchasing->prices      = $request->input('prices');
         $purchasing->update();
         return response()->json([
             'script' => '<script type="text/javascript">	
@@ -118,12 +124,14 @@ class PurchaseController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $bill)
     {
         //
-        $purchases              = Purchase::find($id);
-        $purchases->id_status   = 1;
-        $purchases->update();
+        $purchasing = PurchasingData::select('id_purchasing_data')->where('bill', $bill);
+
+        // $purchases              = Purchase::find($id);
+        // $purchases->id_status   = 2;
+        // $purchases->update();
         return response()->json([
             'script' => '<script type="text/javascript">	
                             $S(\'#transparencia\').fadeOut(\'slow\',function(){
@@ -149,5 +157,14 @@ class PurchaseController extends Controller
     public function byPurchase($provider){ 
         return Product::join('products_datas', 'products_datas.id_product_data', '=', 'products.id_product_data')
                             ->where('id_provider', $provider)->get();
+    }
+
+    public function PurchasesByBill($bill){
+        $data = Purchase::select('products_datas.description', 'purchasing_datas.amount', 'purchasing_datas.prices', 'purchases.id_purchase')
+                            ->join('purchasing_datas', 'purchases.id_purchasing_data', '=', 'purchasing_datas.id_purchasing_data')
+                            ->join('products', 'purchasing_datas.id_product', '=', 'products.id_product')
+                            ->join('products_datas', 'products_datas.id_product_data', '=', 'products.id_product_data')
+                            ->where('purchasing_datas.bill', $bill)->get();
+        return $data;
     }
 }

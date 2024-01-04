@@ -103,8 +103,6 @@ function validarNumero(e) {
     e.target.value = input;
 }
 
-let j = 0;
-let k = 0;
 // function aggInput(){
 //     const div_global = F.create('div');
 
@@ -249,6 +247,8 @@ function deleteaggInput() {
     F.id('aggInput_').innerHTML = '';
 }
 
+let j = 0;
+let k = 0;
 function aggInput(){
     const div_global = F.create('div');
 
@@ -328,7 +328,7 @@ function aggInput(){
                 label_price.classList.add("form-label");
 
         const input_price = F.create('input', {
-            type: 'text', name: 'price[]', oninput: function(e){
+            type: 'text', name: 'prices[]', oninput: function(e){
                 var input = e.target.value;
                 // Remover cualquier caracter que no sea un número o un punto
                 input = input.replace(/[^0-9.]/g, '');
@@ -358,4 +358,32 @@ function aggInput(){
     F.append([div_principal1, borrar], div_global);
 
     F.append(div_global, F.id('aggInput_'));
+}
+
+function loadPurchase(bill){
+    $S.ajax({
+      url:  'purchases/bill/'+bill,
+      type: 'GET',
+      success: function(response) {
+        // console.warn(response)
+          var tableHtml =  '<table class="table table-striped table-striped-column">';
+              tableHtml += '<thead style="background-color: #125873; color: white;"><tr>';
+              tableHtml += '<th>Producto</th>';
+              tableHtml += '<th>Cantidad Solicitada</th>';
+              tableHtml += '<th>Monto (Bs.)</th>';
+              tableHtml += '</tr></thead>';
+              tableHtml += '<tbody>';
+  
+          response.forEach(function(item) {
+              tableHtml += '<tr>';
+              tableHtml += '<td>' + item.description + '</td>';
+              tableHtml += '<td>' + item.amount + '</td>';
+              tableHtml += '<td>' + item.prices + '</td>';
+              tableHtml += '</tr>';
+          });
+          tableHtml += '</tbody></table>';
+  
+          $S('.table-responsive #bill_table').html(tableHtml);
+      }
+    });
 }

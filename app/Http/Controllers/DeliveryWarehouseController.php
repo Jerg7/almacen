@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Delivery_warehouse;
 use App\Models\Purchase;
+use App\Models\PurchasingData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,9 +16,10 @@ class DeliveryWarehouseController extends Controller
     public function index()
     {
         //
-        $purchases = Purchase::select('providers.description', 'bill', DB::raw('SUM(price) as total_amount'))
-                                ->join('providers', 'providers.id_provider', '=', 'purchases.id_provider')
-                                ->groupBy('purchases.id_provider', 'bill')
+        $purchases = Purchase::select('id_purchase','providers.description as provider', 'purchasing_datas.bill as bill', DB::raw('SUM(purchasing_datas.prices) as total_amount'))
+                                ->join('purchasing_datas', 'purchases.bill', '=', 'purchasing_datas.bill')
+                                ->join('providers', 'providers.id_provider', '=', 'purchasing_datas.id_provider')
+                                ->groupBy('purchasing_datas.id_provider', 'purchasing_datas.bill', 'purchases.id_purchase', 'providers.description')
                                 ->get();
         return view('delivery_warehouse.index', compact('purchases'));
     }
@@ -57,9 +59,29 @@ class DeliveryWarehouseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Delivery_warehouse $delivery_warehouse)
+    public function update(Request $request, $bill)
     {
         //
+
+        $purchasing              = Purchase::where('bill', $bill)->get();
+        $id_purchasing_data      = $purchasing->id_product_data;
+
+        $purchases              = Purchase::find($id_purchasing_data);
+        
+
+        $purchasing->update();
+        return response()->json([
+            'script' => '<script type="text/javascript">	
+                            $S(\'#transparencia\').fadeOut(\'slow\',function(){
+                                $S(\'#alerta\').css(\'display\',\'block\');
+                                setTimeout(\'window.parent.location.href="/purchases"\', 1000);      
+                            });
+                        </script>
+                        <div class="alert alert-success col-lg-12" id="alerta" style="display:none; margin-bottom:0px; font-size:13px; margin-top:15px;">
+                            <i class="fa-sharp fa-thin fa-circle-check"></i>
+                            <strong>¡Registro actualizado satisfactoriamente!</strong>
+                        </div>'
+                    ]);
     }
 
     /**

@@ -629,3 +629,29 @@ function purchaseDelete(id){
     }
   });
 }
+
+function purchaseReception(bill){
+  var estatus = "#estatusReception"+bill;
+  var formId = "#FormReceptionPurchase_"+bill;
+  $S(formId).validationEngine("attach", {
+    autoPositionUpdate: true,
+    onValidationComplete: function (_form, status) {
+      if (status == true) {
+        $S('#transparencia').fadeIn('slow');
+        $S("#error").hide();
+        var dataString = $S(formId).serialize();
+        // console.log(dataString);
+        $S.ajax({
+          url:    "/deliveries/"+bill,
+          method: "PUT",
+          data:   dataString,
+          success: function (response) {
+            // Manejar la respuesta del servidor
+            $S(estatus).append(response.script);    // Agregar el script al cuerpo del documento
+            $S('#alerta').fadeIn('slow');           // Mostrar el mensaje de alerta
+          }
+        });
+      }
+    }
+  });
+}

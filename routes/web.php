@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DeliveryWarehouseController;
 use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\ProductController;
@@ -45,3 +46,6 @@ Route::get('requirements/historic/{user}', [RequirementController::class, 'Requi
 Route::resource('providers', ProviderController::class)->middleware('auth');
 
 Route::resource('purchases', PurchaseController::class)->middleware('auth');
+Route::get('purchases/bill/{bill}', [PurchaseController::class, 'PurchasesByBill'])->middleware('auth');
+
+Route::resource('deliveries', DeliveryWarehouseController::class)->middleware('auth');

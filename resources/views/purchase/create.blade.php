@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="col">
                             <label for="provider" class="form-label">Proveedor: </label>
-                            <select name="provider" id="provider" class="form-control" onclick="selectProvider()">
+                            <select name="provider" id="provider" class="form-control form-select" onclick="selectProvider()">
                                 <option selected disabled>Seleccione...</option>
                                 @foreach ($providers as $provider)
                                     <option value="{{$provider->id_provider}}">{{$provider->description}}</option>    
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col">
                             <label for="price" class="form-label">Costo (Bs.): </label>
-                            <input type="text" class="form-control" name="price[]" oninput="validarNumero(event)">
+                            <input type="text" class="form-control" name="prices[]" oninput="validarNumero(event)">
                         </div>
                     </div>
 

@@ -25,32 +25,23 @@
 
             <thead style="background-color: #125873; color: white;">
                 <tr>
-                    <th scope="col">Factura</th>
-                    <th scope="col">Nombres de proveedor</th>
-                    <th scope="col">Producto</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Acciones</th>
+                    <th class="col-md-3">Factura</th>
+                    <th class="col-md-4">Nombres de proveedor</th>
+                    <th class="col-md-3">Monto (Bs.)</th>
+                    <th class="col-md-2">Acciones</th>
                 </tr>
             </thead>
 
             <tbody>
-                @foreach ($purchases as $purchase)
+                @foreach ($purchviews as $purchview)
                     <tr>
-                        <td>{{$purchase->bill}}</td>
-                        <td>{{$purchase->provider->description}}</td>
-                        <td>{{$purchase->product->description}}</td>
-                        <td>{{$purchase->amount}}</td>
-                        <td>
-
-                            {{-- Modal edit --}}
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit{{$purchase->id_purchase}}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </button>
-                              |  
-                            {{-- Modal delete --}}
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete{{$purchase->id_purchase}}">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>                            
+                        <td class="col-md-3">{{$purchview->bill}}</td>
+                        <td class="col-md-4">{{$purchview->provider}}</td>
+                        <td class="col-md-3">{{$purchview->total_prices}}</td>
+                        <td class="col-md-2" align="center">
+ 
+                            {{-- Modal Show --}}
+                            <a data-bs-toggle="modal" href="#show{{$purchview->bill}}" role="button" onclick="loadPurchase({{$purchview->bill}})"><i class="fa-solid fa-eye fa-2x"></i></a>
                             @include('purchase.actions')
 
                         </td>
