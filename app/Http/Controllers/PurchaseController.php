@@ -129,8 +129,8 @@ class PurchaseController extends Controller
     public function destroy(Request $request, $bill)
     {
         //
-        // Purchase::join('purchasing_datas', 'purchases.id_purchasing_data', '=', 'purchasing_datas.id_purchasing_data')
-        //                             ->where('purchasing_datas.bill', $bill)->update(['purchases.id_status' => 2]);
+        Purchase::join('purchasing_datas', 'purchases.id_purchasing_data', '=', 'purchasing_datas.id_purchasing_data')
+                                    ->where('purchasing_datas.bill', $bill)->update(['purchases.id_status' => 2]);
         
         $products   = Purchase::select('purchasing_datas.id_product')
                                 ->join('purchasing_datas', 'purchases.id_purchasing_data', '=', 'purchasing_datas.id_purchasing_data')
@@ -140,16 +140,17 @@ class PurchaseController extends Controller
                                 ->where('purchasing_datas.bill', $bill)->get();
 
         for ($i = 0; $i < count($products); $i++) {
-            $exits_product  = Warehouse::select('id_product')->where('id_product', $products[$i])->get();
+            $exits_product  = Warehouse::select('id_product')->where('id_product', $products[$i])->exists();
             
-            if(empty($exits_product) || $exits_product == null){
+            if($exits_product == 0){
                 $warehouses             = new Warehouse;
-                $warehouses->id_product = $products[$i];
-                $warehouses->stock      = $amounts[$i];
+                $warehouses->id_product = preg_replace('/[^0-9]/',"", $products[$i]);
+                $warehouses->stock      = preg_replace('/[^0-9]/',"", $amounts[$i]);
                 $warehouses->save();
             }else{
                 $stock_product = Warehouse::select('stock')->where('id_product', $products[$i])->get();
-                $new_stock_product = $stock_product + $amounts[$i];
+                $stock_product2 = preg_replace('/[^0-9]/',"", $stock_product);
+                $new_stock_product = $stock_product2 + preg_replace('/[^0-9]/',"", $amounts[$i]);
                 Warehouse::where('id_product', $exits_product)->update(['stock' => $new_stock_product]);
             }
           

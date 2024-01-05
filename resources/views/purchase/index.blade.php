@@ -42,17 +42,25 @@
                         <td class="col-md-2" align="center">
                             @if ( $purchview->status == 'EN ESPERA' ) 
                                 <span class="badge bg-warning text-dark">{{$purchview->status}}</span>
+                            </td>
+                            <td class="col-md-2" align="center">
+ 
+                                {{-- Modal Show --}}
+                                <a data-bs-toggle="modal" href="#show{{$purchview->bill}}" role="button" onclick="loadPurchase({{$purchview->bill}})"><i class="fa-solid fa-eye fa-2x"></i></a>
+                                @include('purchase.actions')
+    
+                            </td>
                             @elseif ( $purchview->status == 'RECIBIDO' )
-                                <span class="badge bg-success">{{$purchview->status}}</span>                                
+                                <span class="badge bg-success">{{$purchview->status}}</span>  
+                            </td>
+                            <td class="col-md-2" align="center">
+ 
+                                <a style="color: green;"><i class="fa-solid fa check fa-2x"></i></a>                              
+    
+                            </td>
                             @endif
                         </td>
-                        <td class="col-md-2" align="center">
- 
-                            {{-- Modal Show --}}
-                            <a data-bs-toggle="modal" href="#show{{$purchview->bill}}" role="button" onclick="loadPurchase({{$purchview->bill}})"><i class="fa-solid fa-eye fa-2x"></i></a>
-                            @include('purchase.actions')
 
-                        </td>
                     </tr>
                 @endforeach 
             </tbody>
