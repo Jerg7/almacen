@@ -378,7 +378,7 @@ function loadPurchase(bill){
               tableHtml += '<tr>';
               tableHtml += '<td>' + item.description + '</td>';
               tableHtml += '<td>' + item.amount + '</td>';
-              tableHtml += '<td>' + item.prices + '</td>';
+              tableHtml += '<td align="center">' + item.prices + '</td>';
               tableHtml += '</tr>';
           });
           tableHtml += '</tbody></table>';

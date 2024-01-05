@@ -642,8 +642,8 @@ function purchaseReception(bill){
         var dataString = $S(formId).serialize();
         // console.log(dataString);
         $S.ajax({
-          url:    "/deliveries/"+bill,
-          method: "PUT",
+          url:    "/purchases/"+bill,
+          method: "DELETE",
           data:   dataString,
           success: function (response) {
             // Manejar la respuesta del servidor

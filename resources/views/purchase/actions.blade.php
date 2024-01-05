@@ -30,16 +30,21 @@
                     <br>
                     <div class="row">
                         <div class="table-responsive" id="bill_table">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7"></div>
+                        <div class="col-md-2"><strong>Total (Bs.): </strong></div>
+                        <div class="col-md-3" align="center">{{$purchview->total_prices}}</div>
                     </div>           
                 </div>
 
                 <div class="form-group">
-                    <div id="estatusEdit{{$purchview->bill}}"></div>
+                    <div id="estatusReception{{$purchview->bill}}"></div>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success" onclick="purchaseReception({{$purchview->bill}})">Actualizar</button>
+                    <button type="submit" class="btn btn-success" onclick="purchaseReception({{$purchview->bill}})">Marcar como recibido</button>
                 </div>
 
             </form>

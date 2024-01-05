@@ -25,9 +25,10 @@
 
             <thead style="background-color: #125873; color: white;">
                 <tr>
-                    <th class="col-md-3">Factura</th>
+                    <th class="col-md-2">Factura</th>
                     <th class="col-md-4">Nombres de proveedor</th>
-                    <th class="col-md-3">Monto (Bs.)</th>
+                    <th class="col-md-2">Monto (Bs.)</th>
+                    <th class="col-md-2">Estatus</th>
                     <th class="col-md-2">Acciones</th>
                 </tr>
             </thead>
@@ -35,9 +36,16 @@
             <tbody>
                 @foreach ($purchviews as $purchview)
                     <tr>
-                        <td class="col-md-3">{{$purchview->bill}}</td>
+                        <td class="col-md-2">{{$purchview->bill}}</td>
                         <td class="col-md-4">{{$purchview->provider}}</td>
-                        <td class="col-md-3">{{$purchview->total_prices}}</td>
+                        <td class="col-md-2">{{$purchview->total_prices}}</td>
+                        <td class="col-md-2" align="center">
+                            @if ( $purchview->status == 'EN ESPERA' ) 
+                                <span class="badge bg-warning text-dark">{{$purchview->status}}</span>
+                            @elseif ( $purchview->status == 'RECIBIDO' )
+                                <span class="badge bg-success">{{$purchview->status}}</span>                                
+                            @endif
+                        </td>
                         <td class="col-md-2" align="center">
  
                             {{-- Modal Show --}}

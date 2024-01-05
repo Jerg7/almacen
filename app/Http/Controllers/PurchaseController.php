@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Provider;
 use App\Models\Purchase;
 use App\Models\PurchasingData;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,10 +21,11 @@ class PurchaseController extends Controller
         $purchases  = Purchase::all();
         $providers  = Provider::where('id_status', 1)->get();
         $products   = Product::where('id_status', 1)->get();
-        $purchviews = Purchase::select('providers.description AS provider', 'purchasing_datas.bill AS bill', DB::raw('SUM(purchasing_datas.prices) AS total_prices'))
+        $purchviews = Purchase::select('providers.description AS provider', 'purchasing_datas.bill AS bill', DB::raw('SUM(purchasing_datas.prices) AS total_prices'), 'status_purchases.description AS status')
                                     ->join('purchasing_datas', 'purchases.id_purchasing_data', '=', 'purchasing_datas.id_purchasing_data')
                                     ->join('providers', 'providers.id_provider', '=', 'purchasing_datas.id_provider')
-                                    ->groupBy('purchasing_datas.bill')
+                                    ->join('status_purchases', 'status_purchases.id_status', '=', 'purchases.id_status')
+                                    ->groupBy('purchasing_datas.bill', 'status_purchases.description')
                                     ->get();
         return view('purchase.index', compact('purchases', 'providers', 'products', 'purchviews'));
     }
@@ -127,11 +129,31 @@ class PurchaseController extends Controller
     public function destroy(Request $request, $bill)
     {
         //
-        $purchasing = PurchasingData::select('id_purchasing_data')->where('bill', $bill);
+        // Purchase::join('purchasing_datas', 'purchases.id_purchasing_data', '=', 'purchasing_datas.id_purchasing_data')
+        //                             ->where('purchasing_datas.bill', $bill)->update(['purchases.id_status' => 2]);
+        
+        $products   = Purchase::select('purchasing_datas.id_product')
+                                ->join('purchasing_datas', 'purchases.id_purchasing_data', '=', 'purchasing_datas.id_purchasing_data')
+                                ->where('purchasing_datas.bill', $bill)->get();
+        $amounts    = Purchase::select('purchasing_datas.amount')
+                                ->join('purchasing_datas', 'purchases.id_purchasing_data', '=', 'purchasing_datas.id_purchasing_data')
+                                ->where('purchasing_datas.bill', $bill)->get();
 
-        // $purchases              = Purchase::find($id);
-        // $purchases->id_status   = 2;
-        // $purchases->update();
+        for ($i = 0; $i < count($products); $i++) {
+            $exits_product  = Warehouse::select('id_product')->where('id_product', $products[$i])->get();
+            
+            if(empty($exits_product) || $exits_product == null){
+                $warehouses             = new Warehouse;
+                $warehouses->id_product = $products[$i];
+                $warehouses->stock      = $amounts[$i];
+                $warehouses->save();
+            }else{
+                $stock_product = Warehouse::select('stock')->where('id_product', $products[$i])->get();
+                $new_stock_product = $stock_product + $amounts[$i];
+                Warehouse::where('id_product', $exits_product)->update(['stock' => $new_stock_product]);
+            }
+          
+        }
         return response()->json([
             'script' => '<script type="text/javascript">	
                             $S(\'#transparencia\').fadeOut(\'slow\',function(){
@@ -141,9 +163,10 @@ class PurchaseController extends Controller
                         </script>
                         <div class="alert alert-success col-lg-12" id="alerta" style="display:none; margin-bottom:0px; font-size:13px; margin-top:15px;">
                             <i class="fa-sharp fa-thin fa-circle-check"></i>
-                            <strong>¡Registro eliminado satisfactoriamente!</strong>
-                        </div>'
-                    ]);
+                            <strong>¡La compra ha sido recibida por Almacén!</strong>
+                        </div>',
+                        ]);
+                        
     }
 
     public function byProviders()

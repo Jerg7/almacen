@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DeliveryWarehouseController;
 use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\ManagementController;
 use App\Http\Controllers\ProductController;
@@ -9,6 +8,7 @@ use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RegUserController;
 use App\Http\Controllers\RequirementController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,4 +48,4 @@ Route::resource('providers', ProviderController::class)->middleware('auth');
 Route::resource('purchases', PurchaseController::class)->middleware('auth');
 Route::get('purchases/bill/{bill}', [PurchaseController::class, 'PurchasesByBill'])->middleware('auth');
 
-Route::resource('deliveries', DeliveryWarehouseController::class)->middleware('auth');
+Route::resource('warehouses', WarehouseController::class)->middleware('auth');
