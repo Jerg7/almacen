@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Requirement extends Model
+class FastRequirement extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'requirements';
 
     protected $primaryKey = 'id_requirement';

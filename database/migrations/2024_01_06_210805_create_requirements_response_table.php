@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('response_requirements', function (Blueprint $table) {
-            $table->id('id_response_requirements');
+        Schema::create('requirements_response', function (Blueprint $table) {
+            $table->id('id_response');
             $table->string('amount_delivery')->nullable();
-            $table->longText('modified_justification')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('response_requirements');
+        Schema::dropIfExists('requirements_response');
     }
 };

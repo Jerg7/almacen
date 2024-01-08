@@ -55,7 +55,7 @@
                             </td>
                             <td class="col-md-2" align="center">
  
-                                <a style="color: green;"><i class="fa-solid fa check fa-2x"></i></a>                              
+                                <a style="color: green;"><i class="fa-solid fa-check fa-2x"></i></a>                              
     
                             </td>
                             @endif

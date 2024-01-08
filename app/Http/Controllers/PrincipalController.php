@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Security_question;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 
-class SecurityQuestionsController extends Controller
+class PrincipalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,6 +13,8 @@ class SecurityQuestionsController extends Controller
     public function index()
     {
         //
+        $warehouses = Warehouse::where('stock', '3');
+        return view('home', compact('warehouses'));
     }
 
     /**
@@ -34,7 +36,7 @@ class SecurityQuestionsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Security_question $pregunta_seguridad)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +44,7 @@ class SecurityQuestionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Security_question $pregunta_seguridad)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +52,7 @@ class SecurityQuestionsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Security_question $pregunta_seguridad)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +60,7 @@ class SecurityQuestionsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Security_question $pregunta_seguridad)
+    public function destroy(string $id)
     {
         //
     }

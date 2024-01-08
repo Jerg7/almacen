@@ -4,13 +4,12 @@
         <div class="modal-content">
             
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Categoría</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Cargo</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div id="transparencia" style="display:none"></div>
 
-            {{-- <form action="{{route('job_positions.update', $position->id_position)}}" method="POST"> --}}
             <form id="FormEditJP_{{$position->id_position}}">
                 
                 @csrf
@@ -19,7 +18,7 @@
                 <div class="modal-body">
                     <div class="row g-6">
                         <div class="col-auto">
-                            <label for="descripcion" class="form-label">Nombre de categoría</label>
+                            <label for="descripcion" class="form-label">Nombre de Cargo</label>
                         </div>
                         <div class="col-auto">
                             <input type="text" class="form-control" name="descripcion" id="descripcion" aria-describedby="helpId" placeholder="" value="{{$position->description}}"/>
@@ -50,13 +49,12 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar Categoría</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Eliminar Cargo</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div id="transparencia" style="display:none"></div>
 
-            {{-- <form action="{{route('job_positions.destroy', $position->id_position)}}" method="POST"> --}}
             <form id="FormDeleteJP_{{$position->id_position}}">
 
                 @csrf

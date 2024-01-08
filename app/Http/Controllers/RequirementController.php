@@ -6,8 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Reg_user;
 use App\Models\Requirement;
-use App\Models\Response_requirement;
-use App\Models\User;
+use App\Models\Requirement_response;
 use App\Models\User_detail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -22,12 +21,10 @@ class RequirementController extends Controller
     {
         //
         $requirements   = Requirement::where('id_status', '1')->get();
-        $categories     = Category::where('id_status', '1')->get();
         $products       = Product::where('id_status', '1')->get();
-        $users          = User::where('id_status', '1')->get();
+        $users          = Reg_user::where('id_status', '1')->get();
         $details        = User_detail::all();
-        $tiempoRestante = Config::get('session.lifetime') - (time() - session('last_activity'));
-        return view('requirement.index', compact('requirements', 'products', 'users', 'categories', 'details', 'tiempoRestante'));
+        return view('requirement.index', compact('requirements', 'products', 'users', 'details'));
     }
 
     /**
@@ -37,8 +34,7 @@ class RequirementController extends Controller
     {
         //
         $products       = Product::where('id_status', '1')->get();
-        $categories     = Category::where('id_status', '1')->get();
-        return view('requirement.create', compact('products', 'categories'));
+        return view('requirement.create', compact('products'));
     }
 
     /**
@@ -47,20 +43,17 @@ class RequirementController extends Controller
     public function store(Request $request)
     {
         //
-        $responses                          = new Response_requirement;
+        $responses                          = new Requirement_response;
         $responses->amount_delivery         = null;
-        $responses->modified_justification  = null;
         $responses->save();
 
         //
-        $requirements                           = new Requirement();
-        $requirements->id_user                  = $request->user;
-        $requirements->id_category              = $request->category;
-        $requirements->id_product               = $request->product;
-        $requirements->id_status                = 1;
-        $requirements->requested_amount         = $request->requested_amount;
-        $requirements->justification            = $request->justification;
-        $requirements->id_response_requirements = $responses->id_response_requirements;
+        $requirements                   = new Requirement();
+        $requirements->id_user          = $request->user;
+        $requirements->id_product       = $request->product;
+        $requirements->id_status        = 1;
+        $requirements->requested_amount = $request->requested_amount;
+        $requirements->id_response      = $responses->id_response;
         $requirements->save();
         return redirect()->route('requirements.index');
     }
@@ -90,12 +83,11 @@ class RequirementController extends Controller
     {
         //
         $requirements   = Requirement::find($id);
-        $id_response    = $requirements->id_response_requirements;
+        $id_response    = $requirements->id_response;
         $requirements->update();
 
-        $responses                          = Response_requirement::find($id_response);
+        $responses                          = Requirement_response::find($id_response);
         $responses->amount_delivery         = $request->amount_delivery;
-        $responses->modified_justification  = $request->modified_justification;
         $responses->update();
         return redirect()->back();
     }
@@ -110,10 +102,6 @@ class RequirementController extends Controller
         $requirements->id_status = 2;
         $requirements->update();
         return redirect()->back();
-    }
-
-    public function byCategory($category){
-        return Product::where('id_category', $category)->get();
     }
 
     public function RequirementByManagement($user){

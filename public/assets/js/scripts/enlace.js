@@ -1,4 +1,32 @@
 $S = jQuery.noConflict();
+// ALERT NOTIFICATION
+function fastRequirement(){
+  var estatus = "#estatusFastRequirement";
+  var formId = "#FormFastRequirement_";
+  $S(formId).validationEngine("attach", {
+    autoPositionUpdate: true,
+    onValidationComplete: function (_form, status) {
+      if (status == true) {
+        $S('#transparencia').fadeIn('slow');
+        $S("#error").hide();
+        var dataString = $S(formId).serialize();
+        // console.log(dataString);
+        $S.ajax({
+          url:    "/fast",
+          method: "POST",
+          data:   dataString,
+          success: function (response) {
+            // Manejar la respuesta del servidor
+            $S(estatus).append(response.script);    // Agregar el script al cuerpo del documento
+            $S('#alerta').fadeIn('slow');           // Mostrar el mensaje de alerta
+          }
+        });
+      }
+    }
+  });
+}
+
+
 // USERS
 function userCreate(){
   var formId = "#FormCreateUser";
@@ -483,12 +511,13 @@ function requirementCreate(){
         $S('#transparencia').fadeIn('slow');
         $S("#error").hide();
         var dataString = $S(formId).serialize();
-        // console.log(dataString);
+        console.log(dataString);
         $S.ajax({
           url:    "/requirements",
           method: "POST",
           data:   dataString,
           success: function (response) {
+            console.log(response);
             // Manejar la respuesta del servidor
             $S('#estatus').append(response.script); // Agregar el script al cuerpo del documento
             $S('#alerta').fadeIn('slow');           // Mostrar el mensaje de alerta
@@ -550,6 +579,32 @@ function requirementDelete(id){
     }
   });
 }
+
+function fastrequirementCreate(){
+  var formId = "#FormCreateRequirement";
+  $S(formId).validationEngine("attach", {
+    autoPositionUpdate: true,
+    onValidationComplete: function (_form, status) {
+      if (status == true) {
+        $S('#transparencia').fadeIn('slow');
+        $S("#error").hide();
+        var dataString = $S(formId).serialize();
+        // console.log(dataString);
+        $S.ajax({
+          url:    "/home",
+          method: "POST",
+          data:   dataString,
+          success: function (response) {
+            // console.log(response);
+            // Manejar la respuesta del servidor
+            $S('#estatus').append(response.script); // Agregar el script al cuerpo del documento
+            $S('#alerta').fadeIn('slow');           // Mostrar el mensaje de alerta
+          }
+        });
+      }
+    }
+  });
+} 
 
 
 // PURCHASES

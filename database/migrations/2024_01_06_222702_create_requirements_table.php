@@ -15,16 +15,13 @@ return new class extends Migration
             $table->id('id_requirement');
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id_user')->on('users');
-            $table->unsignedBigInteger('id_category');
-            $table->foreign('id_category')->references('id_category')->on('categories');
             $table->unsignedBigInteger('id_product');
             $table->foreign('id_product')->references('id_product')->on('products');
             $table->unsignedBigInteger('id_status');
             $table->foreign('id_status')->references('id_status')->on('status');
             $table->string('requested_amount');
-            $table->longText('justification');
-            $table->unsignedBigInteger('id_response_requirements');
-            $table->foreign('id_response_requirements')->references('id_response_requirements')->on('response_requirements');
+            $table->unsignedBigInteger('id_response');
+            $table->foreign('id_response')->references('id_response')->on('requirements_response');
             $table->timestamps();
         });
     }

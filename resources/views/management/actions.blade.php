@@ -10,7 +10,6 @@
 
             <div id="transparencia" style="display:none"></div>
 
-            {{-- <form action="{{route('managements.update', $management->id_management)}}" method="POST"> --}}
             <form id="FormEditManagement_{{$management->id_management}}">
 
                 @csrf

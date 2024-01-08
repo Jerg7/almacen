@@ -12,24 +12,25 @@
 
         <input type="hidden" name="user" value="{{ Auth::user()->id_user }}">
         <br>
-            <h4 class="titulo" style="text-align: center;">Requerimientos</h4>
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="titulo">Requerimientos</h4>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-primary" onclick="aggRequirement()"><i class="fa-solid fa-plus"></i> Añadir</button>
+            </div>
+        </div>
         <br>
 
         <div class="row">
 
             <div class="col">
-                <label for="category" class="form-label" style="text-aling: left;">Categoría: </label>
-                <select name="category" id="category" class="form-control" onchange="selectCategory()">
-                    <option selected disabled>Seleccione...</option>
-                    @foreach ($categories as $category)
-                        <option value="{{$category->id_category}}">{{$category->description}}</option>    
-                    @endforeach
-                </select>            
-            </div>
-            <div class="col">
                 <label for="product" class="form-label" style="text-aling: left;">Producto: </label>
                 <select name="product" id="product" class="form-control">
                     <option selected disabled>Seleccione...</option>
+                    @foreach ($products as $product)
+                    <option value="{{$product->id_product}}">{{$product->product_data->description}}</option>    
+                @endforeach
                 </select>            
             </div>
             <div class="col">
@@ -43,14 +44,7 @@
 
         </div>
 
-        <div class="row">
-
-            <div class="col">
-                <label for="justification" class="form-label" style="text-aling: left;">Justificación de requerimiento: </label>
-                <textarea name="justification" id="justification" class="form-control" cols="30" rows="3"></textarea>
-            </div>
-
-        </div>
+        <div id="aggInput_"></div>
 
         <div class="form-group">
             <div id="estatus"></div>
@@ -59,7 +53,7 @@
         <br>
         <div style="text-align: center;">
             {{-- <button type="submit" class="btn btn-primary">Guardar</button> --}}
-            <button type="submit" class="btn btn-primary" onclick="requirementCreate()">Guardar</button>
+            <button type="submit" class="btn btn-success" onclick="fastrequirementCreate()">Guardar</button>
         </div>
 
     </form>

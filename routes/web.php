@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FastRequirementController;
 use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\ManagementController;
+use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\PurchaseController;
@@ -49,3 +51,7 @@ Route::resource('purchases', PurchaseController::class)->middleware('auth');
 Route::get('purchases/bill/{bill}', [PurchaseController::class, 'PurchasesByBill'])->middleware('auth');
 
 Route::resource('warehouses', WarehouseController::class)->middleware('auth');
+
+Route::resource('principal', PrincipalController::class)->middleware('auth');
+
+Route::resource('home', FastRequirementController::class)->middleware('auth');

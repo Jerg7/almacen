@@ -2,29 +2,34 @@
 
 @section('content')
     
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="caja2">
 
-        <div class="carousel-inner">
-
-            <div class="carousel-item">
-                <img class="d-block w-100" src="{{asset('assets/img/almacen1.png')}}">
-            </div>
-
-            <div class="carousel-item">
-                <img class="d-block w-100" src="{{asset('assets/img/almacen2.png')}}">
-            </div>
+        <div class="izq2">
             
+            @foreach ($warehouses as $warehouse)
+
+                <div class="card w-75">
+                    <div class="card-body">
+                        @if ($warehouse->stock >= 1)
+                            <h5 class="card-title"><strong><span style="color: #E5E100;"><i class="fa-solid fa-triangle-exclamation fa-beat"></i></span></strong> Poca reserva de producto</h5>
+                            <p class="card-text"><strong>Producto:</strong> {{$warehouse->product->product_data->description}}</p>
+                            <p class="card-text"><strong>Stock:</strong> {{$warehouse->stock}}</p>
+                        @else
+                            <h5 class="card-title"><strong><span style="color: #E41A1E;"><i class="fa-solid fa-triangle-exclamation fa-beat"></i></span></strong> Sin reservas de producto</h5>
+                            <p class="card-text">No existen reservas disponibles en Almacén del producto: <strong>{{$warehouse->product->product_data->description}}</strong></p>
+                        @endif    
+                        <a data-bs-toggle="modal" href="#fast{{$warehouse->id_product}}" onclick="fastRequirement({{$warehouse->id_product}})" class="btn btn-primary">Requerimiento rápido</a>
+                        @include('requirement.fast')
+                    </div>
+                </div><br>
+
+            @endforeach
+
         </div>
 
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-        </button>
+        <div class="der2">
 
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Siguiente</span>
-        </button>
+        </div>
 
     </div>
 

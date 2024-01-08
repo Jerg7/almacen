@@ -1,18 +1,5 @@
 $S = jQuery.noConflict();
 
-// function selectCategory(){
-//     var category = $S("#category").val();
-//     $S.get('/api/requirement/'+category+'/productByCategory', 
-//             function(data){
-//                 var product_select = '<option value="" selected disabled>Seleccione...</option>';
-//                 for (var i=0; i < data.length; ++i) {
-//                     product_select += '<option value="'+data[i].id_product+'">'+data[i].description+'</option>';
-//                     $S("#product").html(product_select);
-//                 }
-//             }
-//     );
-// }
-
 function selectProvider(){
     var provider = $S("#provider").val();
     $S.get('/api/purchase/'+provider+'/productByProvider', 
@@ -290,6 +277,7 @@ function aggInput(){
            },
         });
         input_product.classList.add("form-control");
+        input_product.classList.add("form-select")
 
 
         // .col amount
@@ -386,4 +374,97 @@ function loadPurchase(bill){
           $S('.table-responsive #bill_table').html(tableHtml);
       }
     });
+}
+
+function aggRequirement(){
+    const div_global = F.create('div');
+
+    const div_principal = F.create('div');
+            div_principal.classList.add('row');
+    
+    const div_product = F.create('div');
+            div_product.classList.add('col');
+
+    const div_amount = F.create('div');
+            div_amount.classList.add('col');
+
+    const div_group = F.create('div');
+            div_group.classList('input-group');
+
+    
+        // div.col#product
+        const label_product = F.create('label', {innerHTML: 'Producto: '});
+                label_product.classList.add('form-label');
+
+        const select_product = F.create('select', {
+            name: 'product[]', id: 'product_'+k, onclick:
+            function(){
+                fetch('/api/purchase/'+provider_id+'/productByProvider')
+                .then(response => response.json())
+                .then(data => {
+                 //    console.log(data);
+                    var product_select = '<option selected disabled>Seleccione...</option>';
+                    for (var i=0; i < data.length; ++i) {
+                        product_select += '<option value="'+data[i].id_product+'">'+data[i].description+'</option>';
+                        $S('#product_'+k).html(product_select);
+                    }   
+                    k++                 
+                })
+            },
+         });
+         select_product.classList.add('form-control');
+         select_product.classList.add('form-select');
+
+
+        // div.col#amount
+        const label_amount = F.create('label', {innerHTML: 'Cantidad: '});
+        label_amount.classList.add("form-label");
+
+        const input_amount = F.create('input', {
+            type: 'number', name: 'amount[]', value: '0', id: 'requested_amount_'+j
+        });
+                input_amount.classList.add("form-control");
+
+        const span_decrement_amount = F.create('span', {innerHTML: '-', onclick: function(){
+            let currentJ = j - 1;
+            var input = document.getElementById('requested_amount_'+currentJ);
+            if (parseInt(input.value) > 0) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }});
+
+                span_decrement_amount.classList.add("input-group-text");
+                span_decrement_amount.classList.add("boton_span");
+
+        const span_increment_amount = F.create('span', {innerHTML: '+', onclick: function(){
+            let currentJ = j - 1;
+            var input = document.getElementById('requested_amount_'+currentJ);
+            input.value = parseInt(input.value) + 1;
+            }
+        });
+                span_increment_amount.classList.add("input-group-text");
+                span_increment_amount.classList.add("boton_span");
+        j++
+
+        // div.row borrar
+        const borrar = F.create('a', {href: 'javascript:void(0)', innerHTML: '<i style="color: red;" class="fa-solid fa-xmark"></i>', onclick: function(){F.remove(div_global);}});
+    
+    F.append([span_decrement_amount, input_amount, span_increment_amount], div_group);
+    F.append([label_product, select_product], div_product);
+    F.append([label_amount, div_group], div_amount);
+    F.append([div_product, div_amount], div_principal);
+    F.append([div_principal, borrar], div_global);
+    F.append(div_global, F.id('aggInput_'))
+}
+
+function btn_increment(id) {
+    var input = document.getElementById("requested_amount"+id);
+    input.value = parseInt(input.value) + 1;
+}
+
+function btn_decrement(id) {
+    var input = document.getElementById("requested_amount"+id);
+    if (parseInt(input.value) > 0) {
+        input.value = parseInt(input.value) - 1;
+    }
 }
