@@ -28,4 +28,6 @@ Route::get('/purchase/product', [PurchaseController::class, 'byProducts']);
 
 Route::get('/purchase/{provider}/productByProvider', [PurchaseController::class, 'byPurchase']);
 
+Route::get('/requirement', [RequirementController::class, 'byProducts']);
+
 

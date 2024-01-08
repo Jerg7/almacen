@@ -389,7 +389,7 @@ function aggRequirement(){
             div_amount.classList.add('col');
 
     const div_group = F.create('div');
-            div_group.classList('input-group');
+            div_group.classList.add('input-group');
 
     
         // div.col#product
@@ -399,7 +399,7 @@ function aggRequirement(){
         const select_product = F.create('select', {
             name: 'product[]', id: 'product_'+k, onclick:
             function(){
-                fetch('/api/purchase/'+provider_id+'/productByProvider')
+                fetch('/api/requirement/')
                 .then(response => response.json())
                 .then(data => {
                  //    console.log(data);

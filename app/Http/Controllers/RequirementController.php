@@ -117,4 +117,10 @@ class RequirementController extends Controller
                                 ->where('user_details.id_management', '=', $managementId)->where('requirements.id_status', '=', '1')->get();
         return $data;
     }
+
+    public function byProducts(){
+        $data = Product::join('products_datas', 'products.id_product_data', '=', 'products_datas.id_product_data')
+                            ->select('products.id_product', 'products_datas.description')->get();
+        return $data;
+    }
 }
