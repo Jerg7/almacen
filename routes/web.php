@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\FastRequirementController;
 use App\Http\Controllers\JobPositionController;
 use App\Http\Controllers\ManagementController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\RegUserController;
 use App\Http\Controllers\RequirementController;
 use App\Http\Controllers\WarehouseController;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 /*

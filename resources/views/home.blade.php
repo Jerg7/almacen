@@ -5,7 +5,7 @@
     <div class="caja2">
 
         <div class="izq2">
-            
+            <h4 class="titulo">Alertas de almacén</h4>
             @foreach ($warehouses as $warehouse)
 
                 <div class="card w-75">
@@ -28,9 +28,12 @@
         </div>
 
         <div class="der2">
-
+            <h4 class="titulo">Solicitudes por artículo</h4>
+            <canvas id="myChart" width="200" height="140"></canvas>
         </div>
 
     </div>
+    
+    @include('footer.chartJS')
 
 @endsection

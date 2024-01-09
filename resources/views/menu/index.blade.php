@@ -9,17 +9,12 @@
 
     {{-- Bar date --}}
     <div class="container-fluid" style="background-color:#125873; width:100%; color:#FFF; text-align:right; font-size:14px; padding-top:10px;">
+        Sesión: <span id="session_timer"></span> | 
         <i class="fa-regular fa-calendar"></i>
-        <script>
-            var meses = new Array ("Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
-            var f = new Date();
-            document.write("Fecha: "+f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear()) ;
-        </script> | 
+        <script type="text/javascript" src="{{asset('/assets/js/scripts/calendar_menu.js')}}"></script> | 
         <i class="fa-regular fa-clock"></i>
         <script type="text/javascript" src="{{asset('/assets/js/liveclok/liveclock.js')}}"></script>
-        <script>
-            show_clock();
-        </script>
+        <script>show_clock();</script>
     </div>
     
     {{-- Navbar --}}
@@ -160,5 +155,11 @@
 
     </nav>
 
+    <div id="session_message" style="display: none;">
+        <div id="session_timer"></div>
+        Su sesión está a punto de expirar en 5 minutos. Haga clic aquí para ampliar su sesión.
+    </div>
+
+    <script type="text/javascript" src="{{asset('/assets/js/scripts/session.js')}}"></script>
 </body>
 </html>

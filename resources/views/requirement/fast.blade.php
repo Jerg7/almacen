@@ -10,13 +10,14 @@
 
             <div id="transparencia" style="display:none"></div>
 
-            <form id="FormCreateRequirement" method="POST">
+            <form id="FormCreateRequirement_{{$warehouse->id_warehouse}}" method="POST">
 
                 @csrf
 
                 <div class="modal-body">
 
                     <input type="hidden" name="user" value="{{ Auth::user()->id_user }}">
+                    
                     <div class="row">
                         <div class="col">
                             <label for="product" class="form-label">Producto: </label>
@@ -33,9 +34,9 @@
                         <div class="col">
                             <label for="amount" class="form-label">Cantidad: </label>
                             <div class="input-group">
-                                <span class="input-group-text boton_span" onclick="btn_decrement({{$warehouse->id_warehouse}})">-</span>
+                                <span class="input-group-text boton_span" onclick="btn_decrements({{$warehouse->id_warehouse}})">-</span>
                                 <input type="number" class="form-control" name="requested_amount" id="requested_amount{{$warehouse->id_warehouse}}" value="0">
-                                <span class="input-group-text boton_span" onclick="btn_increment({{$warehouse->id_warehouse}})">+</span>
+                                <span class="input-group-text boton_span" onclick="btn_increments({{$warehouse->id_warehouse}})">+</span>
                             </div>
                         </div>
                     </div>
@@ -43,12 +44,12 @@
                 </div>
     
                 <div class="form-group">
-                    <div id="estatus"></div>
+                    <div id="estatusFast_{{$warehouse->id_warehouse}}"></div>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-success" onclick="fastrequirementCreate()">Enviar solicitud</button>
+                    <button type="submit" class="btn btn-success" onclick="fastrequirementCreate({{$warehouse->id_warehouse}})">Enviar solicitud</button>
                 </div>
 
             </form>

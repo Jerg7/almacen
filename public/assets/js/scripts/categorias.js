@@ -63,19 +63,19 @@ function requirementCondition(obj){
     }
 }
 
-function btn_increment() {
+function btn_increment(){
     var input = document.getElementById("requested_amount");
     input.value = parseInt(input.value) + 1;
 }
 
-function btn_decrement() {
+function btn_decrement(){
     var input = document.getElementById("requested_amount");
     if (parseInt(input.value) > 0) {
         input.value = parseInt(input.value) - 1;
     }
 }
 
-function validarNumero(e) {
+function validarNumero(e){
     var input = e.target.value;
     // Remover cualquier caracter que no sea un número o un punto
     input = input.replace(/[^0-9.]/g, '');
@@ -230,12 +230,12 @@ function validarNumero(e) {
 //     F.append(div_global, F.id('aggInput'));
 // }
 
-function deleteaggInput() {
+function deleteaggInput(){
     F.id('aggInput_').innerHTML = '';
 }
 
-let j = 0;
-let k = 0;
+let cont2 = 0;
+let cont3 = 0;
 function aggInput(){
     const div_global = F.create('div');
 
@@ -261,7 +261,7 @@ function aggInput(){
     
         var provider_id = $S("#provider").val();
         const input_product = F.create('select', {
-            name: 'product[]', id: 'product_'+k, onclick: 
+            name: 'product[]', id: 'product_'+cont2, onclick: 
             function(){
                fetch('/api/purchase/'+provider_id+'/productByProvider')
                .then(response => response.json())
@@ -270,9 +270,9 @@ function aggInput(){
                    var product_select = '<option selected disabled>Seleccione...</option>';
                    for (var i=0; i < data.length; ++i) {
                        product_select += '<option value="'+data[i].id_product+'">'+data[i].description+'</option>';
-                       $S('#product_'+k).html(product_select);
+                       $S('#product_'+cont2).html(product_select);
                    }   
-                   k++                 
+                   cont2++                 
                })
            },
         });
@@ -285,13 +285,13 @@ function aggInput(){
                 label_amount.classList.add("form-label");
         
         const input_amount = F.create('input', {
-            type: 'number', name: 'amount[]', value: '0', id: 'requested_amount_'+j
+            type: 'number', name: 'amount[]', value: '0', id: 'requested_amount_'+cont3
         });
                 input_amount.classList.add("form-control");
 
         const span_decrement_amount = F.create('span', {innerHTML: '-', onclick: function(){
-            let currentJ = j - 1;
-            var input = document.getElementById('requested_amount_'+currentJ);
+            let currentCont3 = cont3 - 1;
+            var input = document.getElementById('requested_amount_'+currentCont3);
             if (parseInt(input.value) > 0) {
                 input.value = parseInt(input.value) - 1;
             }
@@ -301,14 +301,14 @@ function aggInput(){
                 span_decrement_amount.classList.add("boton_span");
 
         const span_increment_amount = F.create('span', {innerHTML: '+', onclick: function(){
-            let currentJ = j - 1;
-            var input = document.getElementById('requested_amount_'+currentJ);
+            let currentCont3 = cont3 - 1;
+            var input = document.getElementById('requested_amount_'+currentCont3);
             input.value = parseInt(input.value) + 1;
             }
         });
                 span_increment_amount.classList.add("input-group-text");
                 span_increment_amount.classList.add("boton_span");
-        j++
+        cont3++
 
 
         // .col price
@@ -376,6 +376,8 @@ function loadPurchase(bill){
     });
 }
 
+let cont0 = 0;
+let cont1 = 0;
 function aggRequirement(){
     const div_global = F.create('div');
 
@@ -397,7 +399,7 @@ function aggRequirement(){
                 label_product.classList.add('form-label');
 
         const select_product = F.create('select', {
-            name: 'product[]', id: 'product_'+k, onclick:
+            name: 'product[]', id: 'product_'+cont0, onclick:
             function(){
                 fetch('/api/requirement/')
                 .then(response => response.json())
@@ -406,9 +408,9 @@ function aggRequirement(){
                     var product_select = '<option selected disabled>Seleccione...</option>';
                     for (var i=0; i < data.length; ++i) {
                         product_select += '<option value="'+data[i].id_product+'">'+data[i].description+'</option>';
-                        $S('#product_'+k).html(product_select);
+                        $S('#product_'+cont0).html(product_select);
                     }   
-                    k++                 
+                    cont0++                 
                 })
             },
          });
@@ -421,13 +423,13 @@ function aggRequirement(){
         label_amount.classList.add("form-label");
 
         const input_amount = F.create('input', {
-            type: 'number', name: 'amount[]', value: '0', id: 'requested_amount_'+j
+            type: 'number', name: 'amount[]', value: '0', id: 'requested_amount_'+cont1
         });
                 input_amount.classList.add("form-control");
 
         const span_decrement_amount = F.create('span', {innerHTML: '-', onclick: function(){
-            let currentJ = j - 1;
-            var input = document.getElementById('requested_amount_'+currentJ);
+            let currentCont1 = cont1 - 1;
+            var input = document.getElementById('requested_amount_'+currentCont1);
             if (parseInt(input.value) > 0) {
                 input.value = parseInt(input.value) - 1;
             }
@@ -437,14 +439,14 @@ function aggRequirement(){
                 span_decrement_amount.classList.add("boton_span");
 
         const span_increment_amount = F.create('span', {innerHTML: '+', onclick: function(){
-            let currentJ = j - 1;
-            var input = document.getElementById('requested_amount_'+currentJ);
+            let currentCont1 = cont1 - 1;
+            var input = document.getElementById('requested_amount_'+currentCont1);
             input.value = parseInt(input.value) + 1;
             }
         });
                 span_increment_amount.classList.add("input-group-text");
                 span_increment_amount.classList.add("boton_span");
-        j++
+        cont1++
 
         // div.row borrar
         const borrar = F.create('a', {href: 'javascript:void(0)', innerHTML: '<i style="color: red;" class="fa-solid fa-xmark"></i>', onclick: function(){F.remove(div_global);}});
@@ -457,12 +459,12 @@ function aggRequirement(){
     F.append(div_global, F.id('aggInput_'))
 }
 
-function btn_increment(id) {
+function btn_increments(id){
     var input = document.getElementById("requested_amount"+id);
     input.value = parseInt(input.value) + 1;
 }
 
-function btn_decrement(id) {
+function btn_decrements(id){
     var input = document.getElementById("requested_amount"+id);
     if (parseInt(input.value) > 0) {
         input.value = parseInt(input.value) - 1;
